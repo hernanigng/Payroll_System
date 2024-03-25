@@ -25,7 +25,7 @@
 		}
 
 	?>
-    <script>
+    <!-- <script>
         $(document).ready(function () {
             $('.login_btn').click(function () {
                 var username = $('.input_user').val();
@@ -55,8 +55,46 @@
                 });
             });
         });
+    </script> -->
+
+    <!-- script ni angel -->
+    <script> 
+     $(document).ready( function() {
+        $("#login").submit( function(e){
+            e.preventDefault();
+            var data = $(this).serialize();
+			var url = "login.php";
+        $(".status").html('<img src="<? echo IMAGE ?> assets/img/ireplyicon.png" width="50px" class="center-block" />')
+        $.post(url, data, function(response) {
+            setTimeout(function() {
+                $(".status").html(response.message);
+
+                if(response.status == 'success') {
+                    if( response.role == 'author' ) {
+								
+								setTimeout( function() {
+									window.location.href = 'dashboard.php';
+								},2000);
+								
+							} else if(response.role == 'admin' ) {
+								
+								setTimeout( function() {
+									window.location.href = '../admin';
+								},2000);
+								
+							}
+                }
+            },2000)
+        },"json")
+
+
+        }
+
+        )
+     })
+
     </script>
-</head>
+</head> 
 
 <body>
     <div class="container h-100">
