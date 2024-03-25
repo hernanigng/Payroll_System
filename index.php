@@ -13,14 +13,26 @@
     <link rel="stylesheet" type="text/css" href="css/login_style.css">
     <link rel="icon" type="image/x-icon" href="assets/img/ireplyicon.png" sizes="16x16">
 
+    <?php
+		session_start();
+
+        if( isset( $_SESSION['loginStatus'] ) ) {
+			if( $_SESSION['loginStatus'] == "ok" ) {
+				header("Location: index.php");
+			} else {
+				// diri lang sa
+			}
+		}
+
+	?>
     <script>
         $(document).ready(function () {
             $('.login_btn').click(function () {
-                var email = $('.input_user').val();
+                var username = $('.input_user').val();
                 var password = $('.input_pass').val();
 
-                // Check if email and password are empty
-                if (email.trim() === '' || password.trim() === '') {
+                // Check if username and password are empty
+                if (username.trim() === '' || password.trim() === '') {
                     $('#inputWarningModal').modal('show');
                     return;
                 }
@@ -29,10 +41,11 @@
                     url: 'login.php',
                     type: 'post',
                     data: {
-                        email: email,
+                        username: username,
                         password: password
                     },
                     success: function (response) {
+                        $(".status").html(response.message);
                         if (response == 'success') {
                             window.location.href = 'dashboard.php';
                         } else {
@@ -57,13 +70,14 @@
                 </div>
                 <div class="d-flex justify-content-center form_container">
                 	
-			<form>
+			<form id="login">
+                <div class="status"> </div>
 			    <div class="input-group mb-3">
 			        <div class="input-group-append">
 			            <span class="input-group-text"><i class="fas fa-user"></i></span>
 			        </div>
-			        <input type="text" name="email" class="form-control input_user" value=""
-			            placeholder="email" required>
+			        <input type="text" name="username" class="form-control input_user" value=""
+			            placeholder="username" required>
 			    </div>
 			    <div class="input-group mb-2">
 			        <div class="input-group-append">
@@ -101,7 +115,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h5>Email and password are incorrect.</h5>
+                    <h5>username and password are incorrect.</h5>
                 </div>
             </div>
         </div>
@@ -120,7 +134,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h5>input email and password.</h5>
+                    <h5>input username and password.</h5>
                 </div>
             </div>
         </div>
