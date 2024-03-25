@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Payroll System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
+    </script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/login_style.css">
+    <link rel="icon" type="image/x-icon" href="assets/img/ireplyicon.png" sizes="16x16">
+
+    <script>
+        $(document).ready(function () {
+            $('.login_btn').click(function () {
+                var email = $('.input_user').val();
+                var password = $('.input_pass').val();
+
+                // Check if email and password are empty
+                if (email.trim() === '' || password.trim() === '') {
+                    $('#inputWarningModal').modal('show');
+                    return;
+                }
+
+                $.ajax({
+                    url: 'login.php',
+                    type: 'post',
+                    data: {
+                        email: email,
+                        password: password
+                    },
+                    success: function (response) {
+                        if (response == 'success') {
+                            window.location.href = 'dashboard.php';
+                        } else {
+                            $('#errorModal').modal('show');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container h-100">
+        <div class="d-flex justify-content-center h-100">
+
+            <div class="user_card col-md-5">
+                <div class="d-flex justify-content-center">
+                    <div class="brand_logo_container">
+                        <img src="assets/img/ireplyicon.png" class="brand_logo" alt="Logo">
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center form_container">
+                	
+			<form>
+			    <div class="input-group mb-3">
+			        <div class="input-group-append">
+			            <span class="input-group-text"><i class="fas fa-user"></i></span>
+			        </div>
+			        <input type="text" name="email" class="form-control input_user" value=""
+			            placeholder="email" required>
+			    </div>
+			    <div class="input-group mb-2">
+			        <div class="input-group-append">
+			            <span class="input-group-text"><i class="fas fa-key"></i></span>
+			        </div>
+			        <input type="password" name="password" class="form-control input_pass" value=""
+			            placeholder="password" required>
+			    </div>
+			    <div class="form-group">
+			        <div class="custom-control custom-checkbox">
+			            <input type="checkbox" class="custom-control-input" id="customControlInline">
+			            <label class="custom-control-label" for="customControlInline">Remember me</label>
+			        </div>
+			    </div>
+			    <div class="d-flex justify-content-center mt-3 login_container">
+			        <button type="button" name="button" class="btn login_btn">Login</button>
+			    </div>
+			</form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title" id="errorModalLabel"><i class="fas fa-exclamation-triangle"></i> Error</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h5>Email and password are incorrect.</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Error Modal -->
+
+    <!-- Input Warning Modal -->
+    <div class="modal fade" id="inputWarningModal" tabindex="-1" role="dialog" aria-labelledby="inputWarningModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title" id="inputWarningModalLabel"><i class="fas fa-exclamation-triangle"></i> Warning</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h5>input email and password.</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Input Warning Modal -->
+
+
+
+</body>
+
+</html>
