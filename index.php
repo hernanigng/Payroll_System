@@ -13,14 +13,26 @@
     <link rel="stylesheet" type="text/css" href="css/login_style.css">
     <link rel="icon" type="image/x-icon" href="assets/img/ireplyicon.png" sizes="16x16">
 
-    <script>
+    <?php
+		session_start();
+
+        if( isset( $_SESSION['loginStatus'] ) ) {
+			if( $_SESSION['loginStatus'] == "ok" ) {
+				header("Location: index.php");
+			} else {
+				// diri lang sa
+			}
+		}
+
+	?>
+    <!-- <script>
         $(document).ready(function () {
             $('.login_btn').click(function () {
-                var email = $('.input_user').val();
+                var username = $('.input_user').val();
                 var password = $('.input_pass').val();
 
-                // Check if email and password are empty
-                if (email.trim() === '' || password.trim() === '') {
+                // Check if username and password are empty
+                if (username.trim() === '' || password.trim() === '') {
                     $('#inputWarningModal').modal('show');
                     return;
                 }
@@ -29,10 +41,11 @@
                     url: 'login.php',
                     type: 'post',
                     data: {
-                        email: email,
+                        username: username,
                         password: password
                     },
                     success: function (response) {
+                        $(".status").html(response.message);
                         if (response == 'success') {
                             window.location.href = 'dashboard.php';
                         } else {
@@ -42,8 +55,45 @@
                 });
             });
         });
+    </script> -->
+
+    <!-- script ni angel -->
+    <script> 
+     $(document).ready( function() {
+        $("#login").submit( function(e){
+            e.preventDefault();
+            var data = $(this).serialize();
+			var url = "login.php";
+        $(".status").html('<img src="<?php define('IMAGE', 'assets/img/loading.gif'); ?>" width="50px" class="center-block" />')
+        $.post(url, data, function(response) {
+            setTimeout(function() {
+                $(".status").html(response.message);
+
+                if(response.status == 'success') {
+                    if( response.role == 'admin' ) {
+								
+								setTimeout( function() {
+									window.location.href = 'dashboard.php';
+								},1000);
+								
+							} else if(response.role == 'accountant' ) {
+								
+								setTimeout( function() {
+									window.location.href = 'dashboard.php';
+								},1000);
+								
+							}
+                }
+            },1000);
+        },"json");
+
+
+        });
+
+        });
+
     </script>
-</head>
+</head> 
 
 <body>
     <div class="container h-100">
@@ -57,13 +107,14 @@
                 </div>
                 <div class="d-flex justify-content-center form_container">
                 	
-			<form>
+			<form id="login">
+                <div class="status"> </div>
 			    <div class="input-group mb-3">
 			        <div class="input-group-append">
 			            <span class="input-group-text"><i class="fas fa-user"></i></span>
 			        </div>
-			        <input type="text" name="email" class="form-control input_user" value=""
-			            placeholder="email" required>
+			        <input type="text" name="username" class="form-control input_user" value=""
+			            placeholder="username" required>
 			    </div>
 			    <div class="input-group mb-2">
 			        <div class="input-group-append">
@@ -79,7 +130,7 @@
 			        </div>
 			    </div>
 			    <div class="d-flex justify-content-center mt-3 login_container">
-			        <button type="button" name="button" class="btn login_btn">Login</button>
+			        <button type="submit" name="button" class="btn login_btn">Login</button>
 			    </div>
 			</form>
 
@@ -89,7 +140,7 @@
         </div>
     </div>
 
-    <!-- Error Modal -->
+    <!-- Error Modal 
     <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -101,14 +152,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h5>Email and password are incorrect.</h5>
+                    <h5>username and password are incorrect.</h5>
                 </div>
             </div>
         </div>
     </div>
-    <!-- End Error Modal -->
+     End Error Modal -->
 
-    <!-- Input Warning Modal -->
+    <!-- Input Warning Modal 
     <div class="modal fade" id="inputWarningModal" tabindex="-1" role="dialog" aria-labelledby="inputWarningModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -120,12 +171,12 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h5>input email and password.</h5>
+                    <h5>input username and password.</h5>
                 </div>
             </div>
         </div>
     </div>
-    <!-- End Input Warning Modal -->
+     End Input Warning Modal -->
 
 
 
