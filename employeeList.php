@@ -9,7 +9,10 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-        <!-- <link rel="stylesheet" href="css/employee_style.css"> -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+
+        <link rel="stylesheet" href="css/employee_style.css">
         <script>
             //$(document),ready(function(){
               //  .ready(function () {
@@ -38,14 +41,29 @@
         <body>
         
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> Add Employee </button>
+        
 
         <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog modal-lg">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create New Employee</h5>
+                    <h5 class="modal-title mb-5" id="exampleModalLabel">Create New Employee</h5>    
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#insertEmployee">Personal Information</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#insertEmployment">Employment Details</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Benefit Details</a>
+                            </li>
+                        
+                        </ul>
+
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cancel"></button>
+
                 </div>
                 <div class="modal-body">
                  <form id="insertEmployee" method="POST">
@@ -102,16 +120,55 @@
                 </div>
             </div>
             </div>
+            
 
                 
         <?php
-            $conn= mysqli_connect("localhost","root","","angel");
-            $query=$conn->query("SELECT * FROM person");        
+            $conn= mysqli_connect("localhost","root","","ireply_payroll_db");
+            $query=$conn->query("SELECT * FROM tbl_employee");        
         ?>
-            <h1> Personal Information </h1>
+
+<div class="clearfix"> </div>
+	<div class="tblStatus col-md-6 col-md-offset-3"> </div>
+	<div class="clearfix"> </div>
+	
+     <div id="container1" class="col-md-8 col-md-offset-2">
+    <table width="100%" id="example-table" class="table table-striped table-bordered">
+        <thead>
+            <tr class="info">
+                <th width="10px">Employee ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Action </th>
+            </tr>
+        </thead>
+        <tbody>
+    <?php while ($data=mysqli_fetch_array($query)) { ?>
+
+        <tr id="<?php echo $data['employee_id'];?>">
+        <td><?php echo $data['employee_id']; ?></td>
+        <td><?php echo $data['firstname']; ?></td>
+        <td><?php echo $data['lastname']; ?></td>
+        <td>
+
+        <button class="btn btn-primary view" id="<?php echo $data['employee_id'];?>"> 
+	      <i class="bi bi-eye"> </i>
+	    </button>
+        <button class="btn btn-danger del" id="<?php echo $data['employee_id'];?>">
+	      <i class="bi bi-trash"> </i>
+		</button>
+	    <button class="btn btn-warning edit" id="<?php echo $data['employee_id'];?>"> 
+	      <i class="bi bi-pencil"> </i>
+		</button>
+		</tr>
+        <?php } ?>   
+        </tbody>
+    </table>
+</div>
+          <!--  <h1> Personal Information </h1>
                 <form action="">
                     <label for="firstname">First Name:</label>
-                    <input type="text" id="fname_id" name="fname" class="form-control w-25 p-1"disabled>
+                    <input type="text" id="fname_id" name="fname" class="form-control w-25 p-1" value="<?php echo $data['firstname'];?>"disabled>
 
                     <label for="middlename">Middle Name:</label>
                         <input type="text" id="midname_id" name="fname" class="form-control w-25 p-1"disabled>
@@ -148,7 +205,8 @@
                             <option value="3">3</option>
                         </select>
                     
-                </form>
+                        <?php //} ?> 
+                </form> -->
         
         </body>
 </html>
