@@ -70,16 +70,16 @@
                 $(".status").html(response.message);
 
                 if(response.status == 'success') {
-                    if( response.role == 'author' ) {
+                    if( response.role == 'admin' ) {
 								
 								setTimeout( function() {
 									window.location.href = 'dashboard.php';
 								},1000);
 								
-							} else if(response.role == 'admin' ) {
+							} else if(response.role == 'accountant' ) {
 								
 								setTimeout( function() {
-									window.location.href = '../admin';
+									window.location.href = 'dashboard.php';
 								},1000);
 								
 							}
@@ -109,7 +109,6 @@
                 	
 			<form id="login">
                 <div class="status"> </div>
-                <div> </div>
 			    <div class="input-group mb-3">
 			        <div class="input-group-append">
 			            <span class="input-group-text"><i class="fas fa-user"></i></span>
