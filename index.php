@@ -64,7 +64,7 @@
             e.preventDefault();
             var data = $(this).serialize();
 			var url = "login.php";
-        $(".status").html('<img src="<? echo IMAGE ?> assets/img/ireplyicon.png" width="50px" class="center-block" />')
+        $(".status").html('<img src="<?php define('IMAGE', 'assets/img/loading.gif'); ?>" width="50px" class="center-block" />')
         $.post(url, data, function(response) {
             setTimeout(function() {
                 $(".status").html(response.message);
@@ -74,24 +74,23 @@
 								
 								setTimeout( function() {
 									window.location.href = 'dashboard.php';
-								},2000);
+								},1000);
 								
 							} else if(response.role == 'admin' ) {
 								
 								setTimeout( function() {
 									window.location.href = '../admin';
-								},2000);
+								},1000);
 								
 							}
                 }
-            },2000)
-        },"json")
+            },1000);
+        },"json");
 
 
-        }
+        });
 
-        )
-     })
+        });
 
     </script>
 </head> 
@@ -110,6 +109,7 @@
                 	
 			<form id="login">
                 <div class="status"> </div>
+                <div> </div>
 			    <div class="input-group mb-3">
 			        <div class="input-group-append">
 			            <span class="input-group-text"><i class="fas fa-user"></i></span>
