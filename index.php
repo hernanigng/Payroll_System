@@ -103,7 +103,7 @@
         </div>
     </div>
 
-    <!-- Error Modal -->
+    <!-- Error Modal 
     <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -120,9 +120,9 @@
             </div>
         </div>
     </div>
-    <!-- End Error Modal -->
+     End Error Modal -->
 
-    <!-- Input Warning Modal -->
+    <!-- Input Warning Modal 
     <div class="modal fade" id="inputWarningModal" tabindex="-1" role="dialog" aria-labelledby="inputWarningModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -139,7 +139,7 @@
             </div>
         </div>
     </div>
-    <!-- End Input Warning Modal -->
+     End Input Warning Modal -->
 
 
 
