@@ -1,6 +1,6 @@
 <?php
 
-print_r($_POST);
+$conn = mysqli_connect("localhost", "root", "", "ireply_payroll_db");
 
 $firstName = $_POST['createFirstName'];
 $midName = $_POST['createMiddleName'];
@@ -13,20 +13,27 @@ $persEmail = $_POST['createPersEmail'];
 $workEmail = $_POST['createWorkEmail'];
 $employeeType = $_POST['createEmployeeType'];
 
+$startDate = $_POST['createStartDate'];
+$monthlySalary = $_POST['createMonthlySalary'];
+$accntBonus = $_POST['createAccountBonus'];
+$client = $_POST['createClient'];
+$position = $_POST['createPostion'];
+$employmentStatus = $_POST['createEmploymentStatus'];
 
-include '../database.php';
+$conn->query("INSERT INTO tbl_employee (firstname, middlename, lastname, address, birthdate, contact_num, civilstatus, personal_email, work_email, employee_type,
+start_date, monthly_salary, account_bonus, client, position, employment_status)
+VALUES ('$firstName', '$midName', '$lastName', '$address', '$birthdate', '$contactNum', '$civilStat', '$persEmail', '$workEmail', '$employeeType', '$startDate',
+'monthlySalary', '$accntBonus', '$client', '$position', '$employmentStatus')");
 
-
-$conn->query("INSERT INTO tbl_employee (firstname, middlename, lastname, address, birthdate, contact_num, civilstatus, personal_email, work_email, employee_type)
-VALUES ('$firstName', '$midName', '$lastName', '$address', '$birthdate', '$contactNum', '$civilStat', '$persEmail', '$workEmail', '$employeeType')");
-
+$last_id = $conn->insert_id;
 
 echo json_encode( 
   array(
-    'message' => "<div class='animated pulse alert alert-info col-md-12'> <i class='glyphicon glyphicon-ok'> </i> Succesfully saved. </div>"
-  ) 
-);
-
+    'last_id' => $last_id,
+    'firstname' => $firstName,
+    'lastname' => $lastName,
+    'message' => '<span class="alert alert-info">Test Message</span>'
+));
 
 $conn->close();
 ?>
