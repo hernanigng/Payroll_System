@@ -336,8 +336,48 @@
             </div>
             
 <!-- END INSERT EMPLOYEE -->
-                
-    wla gagana haww
+        
+<?php
+$conn = mysqli_connect("localhost", "root", "", "ireply_payroll_db");
+$query = $conn->query("SELECT * FROM tbl_employee");
+?>
+
+<div class="clearfix"></div>
+<div class="tblStatus col-md-6 col-md-offset-3"></div>
+<div class="clearfix"></div>
+
+<div>
+    <table width="100%" id="employeeTable" class="table table-striped table-bordered">
+        <thead>
+        <tr class="info">
+            <th width="10px">Employee ID</th>
+            <th>Name</th>
+            <th>Employee Type</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php while ($data = mysqli_fetch_array($query)) { ?>
+            <tr id="<?php echo $data['employee_id']; ?>">
+                <td><?php echo $data['employee_id']; ?></td>
+                <td><?php echo $data['firstname'] . " " . $data['lastname']; ?></td>
+                <td><?php echo $data['employee_type']; ?></td>
+                <td>
+                    <button class="btn btn-primary view" onclick="openModal('<?php echo $data['employee_id'];?>')"> 
+                        <i class="bi bi-eye"></i>
+                    </button>
+                    <button class="btn btn-danger del" id="<?php echo $data['employee_id']; ?>">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                    <button class="btn btn-warning edit" id="<?php echo $data['employee_id']; ?>">
+                        <i class="bi bi-pencil"></i>
+                    </button>
+                </td>
+            </tr>
+        <?php } ?>
+        </tbody>
+    </table>
+</div>
          
          <script> 
  // VIEW EMPLOYEE SCRIPT
