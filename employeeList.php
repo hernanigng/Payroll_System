@@ -336,7 +336,16 @@
             </div>
             
 <!-- END INSERT EMPLOYEE -->
-                
+        
+<?php
+$conn = mysqli_connect("localhost", "root", "", "ireply_payroll_db");
+$query = $conn->query("SELECT * FROM tbl_employee");
+?>
+
+<div class="clearfix"></div>
+<div class="tblStatus col-md-6 col-md-offset-3"></div>
+<div class="clearfix"></div>
+
 <div>
     <table width="100%" id="employeeTable" class="table table-striped table-bordered">
         <thead>
