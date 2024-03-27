@@ -343,8 +343,8 @@
 	<div class="tblStatus col-md-6 col-md-offset-3"> </div>
 	<div class="clearfix"> </div>
 	
-    <div>
-    <table width="100%" id="employeeTable" class="table table-striped table-bordered">
+     <div id="container1" class="col-md-8 col-md-offset-2">
+    <table width="100%" id="example-table" class="table table-striped table-bordered">
         <thead>
         <tr class="info">
             <th width="10px">Employee ID</th>
